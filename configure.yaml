@@ -1,0 +1,67 @@
+DetecterParameters:
+    RuningConf:
+        # set the output path
+        output_dir: ./Outputs/Heatmaps/
+        # set the test image folder
+        data_dir_list: ./data/
+    # -----[Do not change] set the network we used
+    net_path: ./weights/inception_resnet_v2_test.py
+    weight_path: ./weights/Res_i_v2.h5
+    debug_mode: True
+    # set the GPU number to use [NVIDIA TITAN Xp]
+    gpu_list: [0]
+    # -----[not change the following]
+    gpus_per_group: 1
+    pipelineA_number: 1
+    batch_size: 4
+    batch_size_multipler: 1
+    prob_threshold: 0.5
+    queue_A2B_list_LEN: 16
+    queue_B2C_LEN: 6
+    queue_result_LEN: 4
+    block_reinitial_time: 60
+
+ExtracterParameters:
+    RuningConf:
+        # set the output path
+        output_dir: ./Outputs/ExtractedFeatures/
+        # set the test image folder
+        data_dir_list: ./data/
+    net_path: ./weights/inception_resnet_v2.py
+    weight_path: ./weights/Res_i_v2.h5
+    debug_mode: False
+    gpu_list: [0]
+    # -----[not change the following]
+    gpus_per_group: 1
+    pipelineA_number: 1
+    batch_size: 50
+    batch_size_multipler: 5
+    prob_threshold: 0.5
+    queue_A2B_list_LEN: 16
+    queue_B2C_LEN: 8
+    queue_result_LEN: 4
+    block_reinitial_time: 60
+
+CommonParameters:
+    # -----Do not change settings in CommonParameters-----
+    thread_num: 16
+    ClassInfo:
+        name:  {0: normal, 1: atypia, 2: cancer}
+        label: {0: 250, 1: 150, 2: 100, 3: 50}
+        color: {0: [0,0,255], 1: [255,0,0], 2: [0,255,255], 3: [0,255,0]}
+        frequency_band: {0: [0.0,0.24], 1: [0.26,0.49], 2: [0.51,0.74], 3: [0.76, 1]}
+    ColorMean:
+        r_mean: 185
+        g_mean: 50
+        b_mean: 185
+    LevelInfo:
+        spacing_of_40X: 0.2517
+        spacing_of_working_level: 1.0068
+        spacing_of_overview_level: 4.0272
+        toleration_error: 0.2
+
+NMSParameters:
+    RuningConf:
+        output_dir: ../Discriminative_patch_Coor/
+#        data_dir_list: ["/home/sjwang/ssd1T/ImsightMed/stomachcancer/StomachData/"]
+        data_dir_list: ["/research/pheng4/sjwang/data/stomach/zs6y/StomachData/"]
